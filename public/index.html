@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Cows' Disease Prediction</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-KyrgyzWBEZvM45VRMHskIwCwP8j/s2v2vq3sAxP4+mkz8W+A1aZvBpU+1kPaOs/" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar">
+      <a href="#" class="logo">Cow Disease Predictor</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
+    </nav>
+    
+    <div class="carousel-container">
+      <div class="carousel-slide">
+        <img src="C:\Users\Dev_jeff\Documents\project\public/img/image1.jpg">
+        <img src="img/image2.jpg">
+        <img src="img/image3.jpg">
+        <img src="img/image4.jpg">
+        <img src="img/image5.jpg">
+      </div>
+    </div>
+    
+    <h1>Cow Disease Predictor</h1>
+  
+    <form id="symptom-form" method="POST" class="compact-form">
+      <fieldset>
+        <legend>Enter cow symptoms:</legend>
+        <div class="form-group">
+          <label for="symptom1">Symptom 1:</label>
+          <input type="text" id="symptom1" name="symptom1" placeholder="Enter symptom 1" required>
+        </div>
+        <div class="form-group">
+          <label for="symptom2">Symptom 2:</label>
+          <input type="text" id="symptom2" name="symptom2" placeholder="Enter symptom 2" required>
+        </div>
+        <div class="form-group">
+          <label for="symptom3">Symptom 3:</label>
+          <input type="text" id="symptom3" name="symptom3" placeholder="Enter symptom 3" required>
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Submit">
+        </div>
+      </fieldset>
+    </form>
+    
+    <script>
+      // Get a reference to the form element
+      const form = document.getElementById('symptom-form');
+    
+      // Attach a listener to the form's submit event
+      form.addEventListener('submit', (event) => {
+        event.preventDefault(); // Prevent the default form submission behavior
+    
+        // Get the form data
+        const symptom1 = form.elements.symptom1.value;
+        const symptom2 = form.elements.symptom2.value;
+        const symptom3 = form.elements.symptom3.value;
+    
+        // Save the form data to Firebase
+        const db = firebase.firestore();
+        db.collection('symptoms').add({
+          symptom1: symptom1,
+          symptom2: symptom2,
+          symptom3: symptom3,
+        })
+        .then(() => {
+          // Reset the form after successful submission
+          form.reset();
+        })
+        .catch((error) => {
+          console.error('Error adding document: ', error);
+        });
+      });
+    </script>
+ 
+    <footer>
+      <p>&copy;cit-222-036/2019 Cow Disease prediction using Machine Learning</p>
+    </footer>
+  </body>
+</html>
